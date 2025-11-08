@@ -1,3 +1,4 @@
+# Configuration Statique du Système de Routage
 spring:
   cloud:
     gateway:
