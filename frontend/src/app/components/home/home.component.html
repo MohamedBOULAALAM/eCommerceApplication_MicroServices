@@ -1,0 +1,54 @@
+<div class="home-container">
+  <div class="hero-section">
+    <h1>Bienvenue dans eComApp Microservices</h1>
+    <p class="subtitle">Application de gestion de factures basée sur une architecture microservices</p>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">👥</div>
+      <h2>Gestion des Clients</h2>
+      <p>Créez, modifiez et gérez vos clients facilement</p>
+      <a routerLink="/customers" class="btn btn-primary">Voir les Clients</a>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">📦</div>
+      <h2>Gestion des Produits</h2>
+      <p>Gérez votre inventaire de produits</p>
+      <a routerLink="/products" class="btn btn-primary">Voir les Produits</a>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">🧾</div>
+      <h2>Consultation des Factures</h2>
+      <p>Consultez vos factures avec détails complets</p>
+      <a routerLink="/bills" class="btn btn-primary">Voir les Factures</a>
+    </div>
+  </div>
+
+  <div class="info-section">
+    <h2>Architecture Microservices</h2>
+    <div class="services-list">
+      <div class="service-item">
+        <strong>Customer-Service</strong> - Port 8081
+      </div>
+      <div class="service-item">
+        <strong>InventoryService</strong> - Port 8082
+      </div>
+      <div class="service-item">
+        <strong>BillingService</strong> - Port 8083
+      </div>
+      <div class="service-item">
+        <strong>GatewayService</strong> - Port 8888
+      </div>
+      <div class="service-item">
+        <strong>DiscoveryService</strong> - Port 8761
+      </div>
+      <div class="service-item">
+        <strong>ConfigService</strong> - Port 9999
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,20 @@
+<nav class="navbar">
+  <div class="nav-container">
+    <h1 class="logo">{{ title }}</h1>
+    <ul class="nav-menu">
+      <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Accueil</a></li>
+      <li><a routerLink="/customers" routerLinkActive="active">Clients</a></li>
+      <li><a routerLink="/products" routerLinkActive="active">Produits</a></li>
+      <li><a routerLink="/bills" routerLinkActive="active">Factures</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="main-content">
+  <router-outlet></router-outlet>
+</main>
+
+<footer class="footer">
+  <p>&copy; 2024 eComApp Microservices - Architecture Spring Cloud</p>
+</footer>
+

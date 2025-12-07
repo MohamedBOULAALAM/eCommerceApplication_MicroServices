@@ -1,0 +1,105 @@
+<div class="bills-container">
+  <div class="header">
+    <h1>Consultation des Factures</h1>
+  </div>
+
+  <div class="search-section">
+    <div class="search-form">
+      <label for="billId">ID de la Facture</label>
+      <div class="input-group">
+        <input 
+          type="number" 
+          id="billId" 
+          [(ngModel)]="billId" 
+          name="billId"
+          placeholder="Entrez l'ID de la facture"
+          class="form-control"
+        />
+        <button class="btn btn-primary" (click)="loadBill()" [disabled]="loading">
+          {{ loading ? 'Chargement...' : 'Charger' }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert alert-error" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+
+  <div class="bill-details" *ngIf="bill">
+    <div class="bill-card">
+      <div class="bill-header">
+        <h2>Facture #{{ bill.id }}</h2>
+        <span class="bill-date">{{ bill.billingDate | date:'dd/MM/yyyy' }}</span>
+      </div>
+
+      <div class="bill-section">
+        <h3>Informations Client</h3>
+        <div class="info-grid" *ngIf="bill.customer">
+          <div class="info-item">
+            <span class="label">ID:</span>
+            <span class="value">{{ bill.customer.id }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Nom:</span>
+            <span class="value">{{ bill.customer.name }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Email:</span>
+            <span class="value">{{ bill.customer.email }}</span>
+          </div>
+        </div>
+        <div *ngIf="!bill.customer" class="no-info">
+          Informations client non disponibles
+        </div>
+      </div>
+
+      <div class="bill-section">
+        <h3>Articles</h3>
+        <div class="table-container">
+          <table class="items-table">
+            <thead>
+              <tr>
+                <th>Produit</th>
+                <th>Prix Unitaire</th>
+                <th>Quantité</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of bill.productItems">
+                <td>
+                  <div *ngIf="item.product">
+                    <strong>{{ item.product.name }}</strong>
+                    <small>(ID: {{ item.product.id }})</small>
+                  </div>
+                  <div *ngIf="!item.product">
+                    Produit ID: {{ item.productId }}
+                  </div>
+                </td>
+                <td>{{ item.unitPrice | number:'1.2-2' }} €</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ (item.quantity * item.unitPrice) | number:'1.2-2' }} €</td>
+              </tr>
+              <tr *ngIf="!bill.productItems || bill.productItems.length === 0">
+                <td colspan="4" class="no-data">Aucun article</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr class="total-row">
+                <td colspan="3"><strong>Total</strong></td>
+                <td><strong>{{ calculateTotal() | number:'1.2-2' }} €</strong></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="empty-state" *ngIf="!bill && !loading && !errorMessage">
+    <div class="empty-icon">🧾</div>
+    <p>Entrez un ID de facture pour commencer</p>
+  </div>
+</div>
+
