@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BillService } from '../../services/bill.service';
-import { Bill } from '../../../models/bill.model';
+import { Bill, ProductItem } from '../../models/bill.model';
 
 @Component({
   selector: 'app-bills',
@@ -34,11 +34,11 @@ export class BillsComponent implements OnInit {
     this.bill = null;
 
     this.billService.getBillById(this.billId).subscribe({
-      next: (bill) => {
+      next: (bill: Bill) => {
         this.bill = bill;
         this.loading = false;
       },
-      error: (error) => {
+      error: (error: any) => {
         this.errorMessage = 'Erreur lors du chargement de la facture: ' + (error.message || 'Facture non trouvée');
         this.loading = false;
         console.error('Error loading bill:', error);
@@ -48,7 +48,7 @@ export class BillsComponent implements OnInit {
 
   calculateTotal(): number {
     if (!this.bill?.productItems) return 0;
-    return this.bill.productItems.reduce((total, item) => {
+    return this.bill.productItems.reduce((total: number, item: ProductItem) => {
       return total + (item.quantity * item.unitPrice);
     }, 0);
   }

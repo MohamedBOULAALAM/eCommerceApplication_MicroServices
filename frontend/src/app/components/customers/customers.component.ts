@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CustomerService } from '../../services/customer.service';
-import { Customer } from '../../../models/customer.model';
+import { Customer, CustomerPage } from '../../models/customer.model';
 
 @Component({
   selector: 'app-customers',
@@ -28,11 +28,11 @@ export class CustomersComponent implements OnInit {
 
   loadCustomers(): void {
     this.customerService.getAllCustomers().subscribe({
-      next: (response) => {
+      next: (response: CustomerPage) => {
         this.customers = this.customerService.extractCustomers(response);
         this.errorMessage = '';
       },
-      error: (error) => {
+      error: (error: any) => {
         this.errorMessage = 'Erreur lors du chargement des clients: ' + (error.message || 'Erreur inconnue');
         console.error('Error loading customers:', error);
       }
@@ -76,7 +76,7 @@ export class CustomersComponent implements OnInit {
           this.loadCustomers();
           this.cancelForm();
         },
-        error: (error) => {
+        error: (error: any) => {
           this.errorMessage = 'Erreur lors de la modification: ' + (error.message || 'Erreur inconnue');
           console.error('Error updating customer:', error);
         }
@@ -88,7 +88,7 @@ export class CustomersComponent implements OnInit {
           this.loadCustomers();
           this.cancelForm();
         },
-        error: (error) => {
+        error: (error: any) => {
           this.errorMessage = 'Erreur lors de la création: ' + (error.message || 'Erreur inconnue');
           console.error('Error creating customer:', error);
         }
@@ -105,7 +105,7 @@ export class CustomersComponent implements OnInit {
           this.successMessage = 'Client supprimé avec succès';
           this.loadCustomers();
         },
-        error: (error) => {
+        error: (error: any) => {
           this.errorMessage = 'Erreur lors de la suppression: ' + (error.message || 'Erreur inconnue');
           console.error('Error deleting customer:', error);
         }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProductService } from '../../services/product.service';
-import { Product } from '../../../models/product.model';
+import { Product, ProductPage } from '../../models/product.model';
 
 @Component({
   selector: 'app-products',
@@ -28,11 +28,11 @@ export class ProductsComponent implements OnInit {
 
   loadProducts(): void {
     this.productService.getAllProducts().subscribe({
-      next: (response) => {
+      next: (response: ProductPage) => {
         this.products = this.productService.extractProducts(response);
         this.errorMessage = '';
       },
-      error: (error) => {
+      error: (error: any) => {
         this.errorMessage = 'Erreur lors du chargement des produits: ' + (error.message || 'Erreur inconnue');
         console.error('Error loading products:', error);
       }
@@ -76,7 +76,7 @@ export class ProductsComponent implements OnInit {
           this.loadProducts();
           this.cancelForm();
         },
-        error: (error) => {
+        error: (error: any) => {
           this.errorMessage = 'Erreur lors de la modification: ' + (error.message || 'Erreur inconnue');
           console.error('Error updating product:', error);
         }
@@ -88,7 +88,7 @@ export class ProductsComponent implements OnInit {
           this.loadProducts();
           this.cancelForm();
         },
-        error: (error) => {
+        error: (error: any) => {
           this.errorMessage = 'Erreur lors de la création: ' + (error.message || 'Erreur inconnue');
           console.error('Error creating product:', error);
         }
@@ -105,7 +105,7 @@ export class ProductsComponent implements OnInit {
           this.successMessage = 'Produit supprimé avec succès';
           this.loadProducts();
         },
-        error: (error) => {
+        error: (error: any) => {
           this.errorMessage = 'Erreur lors de la suppression: ' + (error.message || 'Erreur inconnue');
           console.error('Error deleting product:', error);
         }
